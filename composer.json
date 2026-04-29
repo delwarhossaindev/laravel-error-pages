@@ -1,5 +1,5 @@
 {
-    "name": "acibd/laravel-error-pages",
+    "name": "delwarhossaindev/laravel-error-pages",
     "description": "Beautiful pre-styled Laravel error pages (403, 404, 500, 503) with SVG illustrations for AdminLTE / Bootstrap apps.",
     "type": "library",
     "license": "MIT",
@@ -16,7 +16,7 @@
     "authors": [
         {
             "name": "Delwar Hossain",
-            "email": "acimiswebapps@gmail.com",
+            "email": "delwarhossain1103104@gmail.com",
             "homepage": "https://github.com/delwarhossaindev"
         }
     ],
@@ -26,18 +26,18 @@
         "source": "https://github.com/delwarhossaindev/laravel-error-pages"
     },
     "require": {
-        "php": "^8.1",
-        "illuminate/support": "^10.0|^11.0|^12.0"
+        "php": "^5.5.9|^7.0|^8.0",
+        "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {
-            "Acibd\\ErrorPages\\": "src/"
+            "Delwarhossaindev\\ErrorPages\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Acibd\\ErrorPages\\ErrorPagesServiceProvider"
+                "Delwarhossaindev\\ErrorPages\\ErrorPagesServiceProvider"
             ]
         }
     },
