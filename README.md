@@ -49,10 +49,11 @@ php artisan vendor:publish --tag=error-pages
 
 | 🚀 | মাত্র একটি কমান্ডে ইনস্টল ও পাবলিশ |
 |----|--------------------------------------|
-| 🎯 | **403**, **404**, **500**, **503** — চারটি এরর কভার করে |
-| 🖼️ | হালকা **SVG ইলাস্ট্রেশন** অন্তর্ভুক্ত |
-| 🧩 | একটি শেয়ার্ড `layout.blade.php` — একবার পরিবর্তন করলে সব জায়গায় প্রযোজ্য |
-| 🎨 | AdminLTE-রেডি, সম্পূর্ণ কাস্টমাইযোগ্য |
+| 🎯 | **401, 402, 403, 404, 419, 429, 500, 503** — ৮টি HTTP error page অন্তর্ভুক্ত |
+| 🖼️ | Split-screen illustrated layout — বাম পাশে বার্তা, ডান পাশে **SVG ইলাস্ট্রেশন** |
+| 🎨 | ৪টি SVG (403, 404, 500, 503) দিয়ে সব page কভার — প্রতিটি blade-এ সরাসরি SVG নির্ধারিত |
+| 🌍 | **Translation-ready** — `resources/lang/en/auth.php` publish করে সব ভাষায় কাস্টমাইজ |
+| 🧩 | একটি শেয়ার্ড `illustrated-layout.blade.php` — একবার পরিবর্তন করলে সব জায়গায় প্রযোজ্য |
 | ⚡ | Service Provider স্বয়ংক্রিয়ভাবে আবিষ্কৃত হয় |
 | 🦾 | Laravel **5.x → 12.x** এবং PHP **5.5.9 → 8.x** সাপোর্ট |
 | 📦 | MIT লাইসেন্স |
@@ -61,31 +62,39 @@ php artisan vendor:publish --tag=error-pages
 
 ## 🖼️ প্রিভিউ
 
-> 📸 নিচের স্ক্রিনশটগুলো দেখায় প্যাকেজ ইনস্টল করার পর এরর পেজগুলো কেমন দেখায়।
+> 📸 Split-screen illustrated layout — বাম পাশে error code ও বার্তা, ডান পাশে SVG illustration। মাত্র **৪টি SVG** দিয়ে **৮টি** HTTP error page কভার করা হয়েছে।
 
 <table>
   <tr>
     <td align="center">
-      <img src="screenshots/404.png" alt="404 পেজ না পাওয়া" width="420" />
+      <img src="screenshots/403.png" alt="403 Forbidden" width="420" />
       <br/>
-      <strong>404 — পেজ পাওয়া যায়নি</strong>
+      <strong>403.svg</strong>
+      <br/>
+      <sub>401 · 402 · 403 · 419 · 429</sub>
     </td>
     <td align="center">
-      <img src="screenshots/403.png" alt="403 অনুমতি নেই" width="420" />
+      <img src="screenshots/404.png" alt="404 Not Found" width="420" />
       <br/>
-      <strong>403 — অনুমতি নেই</strong>
+      <strong>404.svg</strong>
+      <br/>
+      <sub>404</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="screenshots/500.png" alt="500 সার্ভার এরর" width="420" />
+      <img src="screenshots/500.png" alt="500 Server Error" width="420" />
       <br/>
-      <strong>500 — সার্ভার এরর</strong>
+      <strong>500.svg</strong>
+      <br/>
+      <sub>500</sub>
     </td>
     <td align="center">
-      <img src="screenshots/503.png" alt="503 সার্ভিস অনুপলব্ধ" width="420" />
+      <img src="screenshots/503.png" alt="503 Service Unavailable" width="420" />
       <br/>
-      <strong>503 — সার্ভিস অনুপলব্ধ</strong>
+      <strong>503.svg</strong>
+      <br/>
+      <sub>503</sub>
     </td>
   </tr>
 </table>
@@ -160,7 +169,8 @@ mkdir -p src resources/views/errors resources/svg
 #
 #   • composer.json
 #   • src/ErrorPagesServiceProvider.php
-#   • resources/views/errors/{layout,403,404,500,503}.blade.php
+#   • resources/views/errors/layout.blade.php
+#   • resources/views/errors/{401,402,403,404,419,429,500,503}.blade.php
 #   • resources/svg/{403,404,500,503}.svg
 #   • LICENSE, .gitignore, .gitattributes, README.md
 #
@@ -436,20 +446,38 @@ class ErrorPagesServiceProvider extends ServiceProvider
 
 #### Blade ভিউ (`resources/views/errors/`)
 
-একটি শেয়ার্ড layout, তারপর চারটি ফাইল যেগুলো সেটি extend করে:
+একটি শেয়ার্ড `illustrated-layout.blade.php`, তারপর প্রতিটি HTTP error code-এর জন্য একটি ফাইল যা সেটি extend করে:
 
-**`layout.blade.php`** — সাধারণ শেল (CSS, কাঠামো)
-**`403.blade.php` / `404.blade.php` / `500.blade.php` / `503.blade.php`** — প্রতিটিতে শুধু code, title এবং message সেট করা:
+**`illustrated-layout.blade.php`** — split-screen shell (CSS, কাঠামো, "Back to Home" বাটন)
+**`401`, `402`, `403`, `404`, `419`, `429`, `500`, `503`.blade.php** — প্রতিটিতে code, title, image (SVG), message সেট করা:
 
 ```blade
-@extends('errors.layout')
+@extends('errors::illustrated-layout')
 
 @section('code', '404')
-@section('title', 'পেজ পাওয়া যায়নি')
-@section('message', $exception->getMessage() ?: 'দুঃখিত, আপনি যে পেজটি খুঁজছেন তা পাওয়া যাচ্ছে না।')
+@section('title', __('auth.page_not_found'))
+
+@section('image')
+<div style="background-image: url({{ asset('/svg/404.svg') }});"
+     class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
+</div>
+@endsection
+
+@section('message', __('auth.page_not_found_msg'))
 ```
 
 > 💡 Laravel **স্বয়ংক্রিয়ভাবে** HTTP error-এর জন্য `errors/{status}.blade.php` খোঁজে। তাই ফাইলের নাম হুবহু এরকম হতে হবে।
+
+#### SVG ও error code ম্যাপিং
+
+প্রতিটি blade ফাইলে সরাসরি কোন SVG দেখাবে তা নির্ধারিত:
+
+| SVG | যে error page গুলো ব্যবহার করে |
+|-----|-------------------------------|
+| `403.svg` | 401, 402, 403, 419, 429 |
+| `404.svg` | 404 |
+| `500.svg` | 500 |
+| `503.svg` | 503 |
 
 #### SVG ইলাস্ট্রেশন (`resources/svg/`)
 
@@ -687,36 +715,55 @@ php artisan vendor:publish --tag=error-pages
 
 | Tag | কী পাবলিশ হবে |
 |-----|--------------|
-| `error-pages-views` | শুধু Blade ভিউ |
-| `error-pages-assets` | শুধু SVG ইলাস্ট্রেশন |
-| `error-pages` | দুটোই |
+| `error-pages-views` | শুধু Blade ভিউ (`resources/views/errors/`) |
+| `error-pages-assets` | শুধু SVG ইলাস্ট্রেশন (`public/svg/`) |
+| `error-pages-lang` | শুধু Translation file (`lang/en/auth.php`) |
+| `error-pages` | সবকিছু (views + assets + lang) |
 
 ## <a id="customization"></a>🎨 কাস্টমাইজেশন
 
 পাবলিশ করার পর সব ফাইল আপনার অ্যাপে থাকে — যা ইচ্ছা পরিবর্তন করুন।
 
-### CSS ফ্রেমওয়ার্ক বদলান
-
-`resources/views/errors/layout.blade.php` খুলুন:
-
-```diff
-- <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}" />
-+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-```
-
 ### টাইটেল ও বার্তা পরিবর্তন করুন
 
-```blade
-@extends('errors.layout')
+`lang/en/auth.php` পাবলিশ করে translation keys এডিট করুন:
 
-@section('code', '404')
-@section('title', 'উফ! পেজ পাওয়া যাচ্ছে না 🚀')
-@section('message', 'আপনি যে পেজটি খুঁজছেন তা আর নেই।')
+```bash
+php artisan vendor:publish --tag=error-pages-lang
+```
+
+```php
+// lang/en/auth.php
+'page_not_found'     => 'উফ! পেজ পাওয়া যাচ্ছে না',
+'page_not_found_msg' => 'আপনি যে পেজটি খুঁজছেন তা আর নেই।',
 ```
 
 ### ইলাস্ট্রেশন বদলান
 
 `public/svg/{403,404,500,503}.svg`-এ নিজের SVG ফেলুন — একই নাম রাখুন, কোডে কিছু পরিবর্তন লাগবে না।
+
+### Layout কাস্টমাইজ করুন
+
+পাবলিশ-করা `resources/views/errors/illustrated-layout.blade.php` এডিট করুন — রং, font, বাটনের স্টাইল সব কিছু এখানে।
+
+### নতুন HTTP error যোগ করুন
+
+পাবলিশ-করা `resources/views/errors/`-এ নতুন একটি ফাইল রাখুন (যেমন `405.blade.php`):
+
+```blade
+@extends('errors::illustrated-layout')
+
+@section('code', '405')
+@section('title', 'Method Not Allowed')
+
+@section('image')
+<div style="background-image: url({{ asset('/svg/404.svg') }});"
+     class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
+</div>
+@endsection
+
+@section('message', 'এই URL-এ এই method সমর্থিত নয়।')
+```
 
 ---
 
@@ -740,7 +787,7 @@ php artisan view:clear
 <details>
 <summary><strong>🎨 Layout-এ কোনো স্টাইল নেই</strong></summary>
 
-AdminLTE CSS `public/adminlte/css/adminlte.min.css`-এ থাকার কথা। AdminLTE ইনস্টল করুন অথবা `layout.blade.php`-এর `<link>` Bootstrap CDN দিয়ে বদলান — [কাস্টমাইজেশন](#customization) দেখুন।
+`illustrated-layout.blade.php`-এ সব CSS inline আছে — কোনো বাইরের framework লাগে না। Font লোড না হলে Google Fonts CDN connection চেক করুন।
 </details>
 
 <details>

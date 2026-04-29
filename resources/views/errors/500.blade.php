@@ -1,5 +1,11 @@
-@extends('errors.layout')
+@extends('errors::illustrated-layout')
 
 @section('code', '500')
-@section('title', 'Server Error')
-@section('message', $exception->getMessage() ?: 'Whoops, something went wrong on our servers.')
+@section('title', __('auth.server_error'))
+
+@section('image')
+<div style="background-image: url({{ asset('/svg/500.svg') }});" class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
+</div>
+@endsection
+
+@section('message', __('auth.server_error_msg'))

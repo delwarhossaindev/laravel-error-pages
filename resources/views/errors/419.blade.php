@@ -1,11 +1,11 @@
 @extends('errors::illustrated-layout')
 
-@section('code', '403')
-@section('title', __('auth.forbidden'))
+@section('code', '419')
+@section('title', __('auth.page_expired'))
 
 @section('image')
 <div style="background-image: url({{ asset('/svg/403.svg') }});" class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
 </div>
 @endsection
 
-@section('message', $exception->getMessage() ?: __('auth.forbidden_message'))
+@section('message', __('auth.page_expired_msg'))
