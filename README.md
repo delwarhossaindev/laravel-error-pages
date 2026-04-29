@@ -59,6 +59,39 @@ php artisan vendor:publish --tag=error-pages
 
 ---
 
+## 🖼️ প্রিভিউ
+
+> 📸 নিচের স্ক্রিনশটগুলো দেখায় প্যাকেজ ইনস্টল করার পর এরর পেজগুলো কেমন দেখায়।
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/404.png" alt="404 পেজ না পাওয়া" width="420" />
+      <br/>
+      <strong>404 — পেজ পাওয়া যায়নি</strong>
+    </td>
+    <td align="center">
+      <img src="screenshots/403.png" alt="403 অনুমতি নেই" width="420" />
+      <br/>
+      <strong>403 — অনুমতি নেই</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="screenshots/500.png" alt="500 সার্ভার এরর" width="420" />
+      <br/>
+      <strong>500 — সার্ভার এরর</strong>
+    </td>
+    <td align="center">
+      <img src="screenshots/503.png" alt="503 সার্ভিস অনুপলব্ধ" width="420" />
+      <br/>
+      <strong>503 — সার্ভিস অনুপলব্ধ</strong>
+    </td>
+  </tr>
+</table>
+
+---
+
 # <a id="tutorial"></a>📚 সম্পূর্ণ টিউটোরিয়াল — নিজেই Laravel প্যাকেজ বানান
 
 > 👋 **স্বাগতম!** এই টিউটোরিয়ালটি ধরে নিচ্ছে আপনি Composer প্যাকেজ সম্পর্কে **একদম কিছু জানেন না**। শেষ পর্যন্ত আপনার নিজের একটি প্যাকেজ Packagist-এ থাকবে, যেটি যেকেউ `composer require` দিয়ে ইনস্টল করতে পারবে।
