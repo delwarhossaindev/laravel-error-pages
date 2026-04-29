@@ -18,6 +18,8 @@ If you have published it on Packagist:
 composer require acibd/laravel-error-pages
 ```
 
+Source code: <https://github.com/delwarhossaindev/laravel-error-pages>
+
 If you are using it as a local path repository, add this to your project's `composer.json`:
 
 ```json

@@ -15,10 +15,16 @@
     ],
     "authors": [
         {
-            "name": "Delwar",
-            "email": "acimiswebapps@gmail.com"
+            "name": "Delwar Hossain",
+            "email": "acimiswebapps@gmail.com",
+            "homepage": "https://github.com/delwarhossaindev"
         }
     ],
+    "homepage": "https://github.com/delwarhossaindev/laravel-error-pages",
+    "support": {
+        "issues": "https://github.com/delwarhossaindev/laravel-error-pages/issues",
+        "source": "https://github.com/delwarhossaindev/laravel-error-pages"
+    },
     "require": {
         "php": "^8.1",
         "illuminate/support": "^10.0|^11.0|^12.0"
