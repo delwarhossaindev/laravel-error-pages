@@ -1,6 +1,6 @@
 {
     "name": "delwarhossaindev/laravel-error-pages",
-    "description": "Beautiful pre-styled Laravel error pages (403, 404, 500, 503) with SVG illustrations for AdminLTE / Bootstrap apps.",
+    "description": "Beautiful pre-styled Laravel error pages (403, 404, 500, 503) with SVG illustrations for Admin DashBoard / Bootstrap apps.",
     "type": "library",
     "license": "MIT",
     "keywords": [

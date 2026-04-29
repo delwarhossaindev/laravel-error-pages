@@ -855,7 +855,7 @@ Webhook সেট করুন (ধাপ ১৩) অথবা Packagist প্�
 ## 💖 কৃতজ্ঞতা
 
 - 👨‍💻 **[Delwar Hossain](https://github.com/delwarhossaindev)** — লেখক ও রক্ষণাবেক্ষণকারী
-- 🚀 Laravel + AdminLTE কমিউনিটির জন্য তৈরি
+- 🚀 Laravel + Admin Dashboard কমিউনিটির জন্য তৈরি
 
 ---
 
