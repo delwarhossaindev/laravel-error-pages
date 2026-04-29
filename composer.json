@@ -10,7 +10,7 @@
         "404",
         "500",
         "503",
-        "adminlte",
+        "admindashboard",
         "bootstrap"
     ],
     "authors": [

@@ -702,7 +702,7 @@ Packagist (ধাপ ১৩-র webhook সহ) সাথে সাথে আপ
 |-----------|--------|
 | 🐘 PHP | `^5.5.9 \| ^7.0 \| ^8.0` *(5.5.9 থেকে 8.x পর্যন্ত যেকোনো ভার্সন)* |
 | 🚀 Laravel | `5.x` · `6.x` · `7.x` · `8.x` · `9.x` · `10.x` · `11.x` · `12.x` *(সব ভার্সন)* |
-| 🎨 AdminLTE | `public/adminlte/css/adminlte.min.css` *(ঐচ্ছিক — [কাস্টমাইজেশন](#customization) দেখুন)* |
+| 🎨 AdminDashboard | `public/admindashboard/css/admindashboard.min.css` *(ঐচ্ছিক — [কাস্টমাইজেশন](#customization) দেখুন)* |
 
 ## ⚡ ইনস্টলেশন
 
@@ -835,6 +835,139 @@ Webhook সেট করুন (ধাপ ১৩) অথবা Packagist প্�
 | **SemVer** | Semantic Versioning: MAJOR.MINOR.PATCH — breaking/feature/fix বোঝায় |
 | **Path repository** | লোকাল Composer source যা একটি ফোল্ডার দেখায় — প্যাকেজ লোকালি টেস্ট করতে ব্যবহৃত |
 | **Stub / template** | প্যাকেজ পাঠানো ডিফল্ট ফাইল যা `vendor:publish` দিয়ে অ্যাপে কপি হয় |
+
+---
+
+## <a id="git-publish"></a>🚀 Git এ Package Upload করার গাইড
+
+### 1️⃣ প্রথমবার Setup
+
+```bash
+# Git initialize (যদি না থাকে)
+git init
+
+# User config (একবার set করলেই হবে)
+git config user.name "your-username"
+git config user.email "your-email@example.com"
+
+# Branch name main করুন
+git branch -M main
+```
+
+### 2️⃣ GitHub Remote যুক্ত করুন
+
+```bash
+# Remote add (প্রথমবার)
+git remote add origin https://github.com/your-username/your-repo.git
+
+# Remote check
+git remote -v
+
+# Remote URL পরিবর্তন করতে
+git remote set-url origin https://github.com/your-username/your-repo.git
+```
+
+### 3️⃣ Code Commit ও Push
+
+```bash
+# সব ফাইল stage করুন
+git add .
+
+# নির্দিষ্ট ফাইল stage করতে
+git add composer.json README.md
+
+# Status দেখুন
+git status
+
+# Commit করুন
+git commit -m "Initial commit"
+
+# প্রথমবার push (upstream set করে)
+git push -u origin main
+
+# পরবর্তী push গুলো
+git push
+```
+
+### 4️⃣ Tag/Release তৈরি করুন *(Packagist এর জন্য জরুরি)*
+
+```bash
+# Tag তৈরি করুন (Semantic Versioning: MAJOR.MINOR.PATCH)
+git tag -a v1.0.0 -m "Release version 1.0.0"
+
+# একটি নির্দিষ্ট tag push করুন
+git push origin v1.0.0
+
+# সব tag একসাথে push
+git push --tags
+
+# Tag list দেখুন
+git tag
+
+# Tag delete (local)
+git tag -d v1.0.0
+
+# Tag delete (remote)
+git push origin --delete v1.0.0
+```
+
+### 5️⃣ Packagist এ Submit করুন
+
+```text
+১. https://packagist.org এ login করুন
+২. "Submit" button এ click করুন
+৩. Repository URL দিন: https://github.com/your-username/your-repo
+৪. "Check" → "Submit" করুন
+৫. Auto-update এর জন্য GitHub webhook setup করুন:
+   GitHub Repo → Settings → Webhooks → Add webhook
+   - Payload URL : https://packagist.org/api/github?username=YOUR_USERNAME
+   - Content type: application/json
+   - Secret      : Packagist API token
+```
+
+### 6️⃣ পরবর্তী Update এর Workflow
+
+```bash
+# Code change করার পর
+git add .
+git commit -m "Update: feature description"
+git push
+
+# নতুন version release করতে
+git tag -a v1.0.1 -m "Bug fixes"
+git push origin v1.0.1
+```
+
+### 7️⃣ দরকারি Helper Commands
+
+```bash
+# শেষ commit গুলো দেখুন
+git log --oneline -5
+
+# Branch তৈরি করুন
+git checkout -b feature-name
+
+# Branch switch
+git checkout main
+
+# Pull (অন্য কেউ change করলে)
+git pull origin main
+```
+
+### ⚡ Quick Daily Workflow
+
+```bash
+git add .
+git commit -m "your message"
+git push
+```
+
+**Version release করার সময়:**
+
+```bash
+git tag -a v1.0.x -m "release note"
+git push origin v1.0.x
+```
 
 ---
 
