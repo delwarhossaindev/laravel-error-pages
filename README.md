@@ -4,12 +4,12 @@
 
 # 🚨 Laravel Error Pages
 
-### Laravel-এর জন্য সুন্দর, রেডিমেড HTTP এরর পেজ — মাত্র ২টি কমান্ডে ✨
+### Laravel-এর জন্য সুন্দর, রেডিমেড HTTP এরর পেজ — মাত্র ১টি কমান্ডে ✨
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/delwarhossaindev/laravel-error-pages.svg?style=for-the-badge&logo=packagist&color=blueviolet)](https://packagist.org/packages/delwarhossaindev/laravel-error-pages)
 [![Total Downloads](https://img.shields.io/packagist/dt/delwarhossaindev/laravel-error-pages.svg?style=for-the-badge&logo=packagist&color=brightgreen)](https://packagist.org/packages/delwarhossaindev/laravel-error-pages)
 [![PHP Version](https://img.shields.io/badge/PHP-5.5_%E2%86%92_8.x-777BB4?style=for-the-badge&logo=php)](https://www.php.net/)
-[![Laravel](https://img.shields.io/badge/Laravel-5.x_%E2%86%92_12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
+[![Laravel](https://img.shields.io/badge/Laravel-5.x_%E2%86%92_13.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
 [![License](https://img.shields.io/packagist/l/delwarhossaindev/laravel-error-pages.svg?style=for-the-badge&color=blue)](LICENSE)
 
 </div>
@@ -20,10 +20,10 @@
 
 ```bash
 composer require delwarhossaindev/laravel-error-pages
-php artisan vendor:publish --tag=error-pages
 ```
 
-ব্যস! এখন `abort(404)` দিলেই সুন্দর পেজ দেখাবে।
+ব্যস! এখন `abort(404)` দিলেই সুন্দর পেজ দেখাবে — **কিছু publish করার দরকার নেই**।
+ফাইলগুলো নিজে এডিট করতে চাইলে তখন `php artisan vendor:publish --tag=error-pages` চালাবেন।
 
 ---
 
@@ -31,9 +31,10 @@ php artisan vendor:publish --tag=error-pages
 
 - 🎯 **৮টি HTTP error page** — 401, 402, 403, 404, 419, 429, 500, 503
 - 🖼️ Split-screen layout — বার্তা + SVG illustration
+- 🔌 **Zero-config** — শুধু `composer require`, publish লাগে না
 - 🌍 **Translation-ready** — যেকোনো ভাষায় কাস্টমাইজ
 - ⚡ Service Provider স্বয়ংক্রিয় আবিষ্কার
-- 🦾 Laravel **5.x → 12.x**, PHP **5.5.9 → 8.x** সাপোর্ট
+- 🦾 Laravel **5.x থেকে সব ভার্সন** (১৩ সহ), PHP **5.5.9 → 8.x**
 - 📦 MIT লাইসেন্স
 
 ---
@@ -67,19 +68,21 @@ php artisan vendor:publish --tag=error-pages
 
 ## 📋 প্রয়োজনীয়তা
 
-- 🐘 PHP `^5.5.9 | ^7.0 | ^8.0`
-- 🚀 Laravel `5.x` থেকে `12.x` (সব ভার্সন)
+- 🐘 PHP `>=5.5.9`
+- 🚀 Laravel `5.x` থেকে শুরু করে **যেকোনো ভার্সন** — কনস্ট্রেইন্ট খোলা রাখা আছে, তাই নতুন Laravel বের হলে এই প্যাকেজের নতুন রিলিজের জন্য অপেক্ষা করতে হবে না।
 
 ---
 
-## 🏷️ পাবলিশের বিকল্প
+## 🏷️ পাবলিশের বিকল্প (ঐচ্ছিক)
 
-| Tag | কী পাবলিশ হবে |
-|-----|--------------|
-| `error-pages` | সবকিছু (views + assets + lang) |
-| `error-pages-views` | শুধু Blade ভিউ |
-| `error-pages-assets` | শুধু SVG |
-| `error-pages-lang` | শুধু Translation file |
+publish না করলেও সব কাজ করে। নিজে এডিট করতে চাইলেই শুধু দরকার:
+
+| Tag | কী পাবলিশ হবে | কোথায় |
+|-----|--------------|--------|
+| `error-pages` | সবকিছু (views + assets + lang) | — |
+| `error-pages-views` | শুধু Blade ভিউ | `resources/views/errors/` |
+| `error-pages-assets` | শুধু SVG | `public/svg/` |
+| `error-pages-lang` | শুধু Translation file | `lang/vendor/error-pages/en/auth.php` |
 
 ---
 
@@ -91,9 +94,13 @@ php artisan vendor:publish --tag=error-pages
 ```bash
 php artisan vendor:publish --tag=error-pages-lang
 ```
-তারপর `lang/en/auth.php`-এ keys এডিট করুন।
+তারপর `lang/vendor/error-pages/en/auth.php`-এ keys এডিট করুন। (আপনার অ্যাপের নিজের `lang/en/auth.php` ছোঁয়া হয় না।)
 
-**ইলাস্ট্রেশন বদলান:** `public/svg/{403,404,500,503}.svg`-এ নিজের SVG রাখুন।
+**ইলাস্ট্রেশন বদলান:**
+```bash
+php artisan vendor:publish --tag=error-pages-assets
+```
+তারপর `public/svg/{403,404,500,503}.svg`-এ নিজের SVG রাখুন। ফাইল থাকলে সেটাই ব্যবহার হবে, না থাকলে প্যাকেজের SVG ইনলাইন হয়ে যাবে।
 
 **Layout পরিবর্তন:** `resources/views/errors/illustrated-layout.blade.php` এডিট করুন।
 
@@ -105,9 +112,37 @@ php artisan vendor:publish --tag=error-pages-lang
 @section('code', '405')
 @section('title', 'Method Not Allowed')
 @section('image')
-<div style="background-image: url({{ asset('/svg/404.svg') }});"></div>
+<div style="background-image: url('{{ \Delwarhossaindev\ErrorPages\Illustration::url('404') }}');"></div>
 @endsection
 @section('message', 'এই URL-এ এই method সমর্থিত নয়।')
+```
+
+`Illustration::url()` আগে `public/svg/`-এ খোঁজে, না পেলে প্যাকেজের SVG data URI হিসেবে ইনলাইন করে দেয়।
+
+---
+
+## 🔼 v1.0.x থেকে আপগ্রেড
+
+v1.1.0-তে দুটো জিনিস বদলেছে:
+
+**১. publish আর বাধ্যতামূলক নয়** — শুধু `composer update` দিলেই চলবে।
+
+**২. Translation ফাইলের জায়গা বদলেছে** — আগে publish হতো `lang/en/auth.php`-এ, যেটা Laravel-এর নিজের auth translation (`failed`, `password`, `throttle`) মুছে দিত। এখন যায় `lang/vendor/error-pages/en/auth.php`-এ।
+
+আগের ভার্সনে lang publish করে থাকলে আপনার `lang/en/auth.php`-এ Laravel-এর আসল keys ফিরিয়ে দিন:
+
+```php
+return [
+    'failed'   => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+];
+```
+
+বার্তা কাস্টমাইজ করে থাকলে সেগুলো নতুন জায়গায় নিয়ে যান:
+
+```bash
+php artisan vendor:publish --tag=error-pages-lang
 ```
 
 ---
@@ -118,15 +153,17 @@ php artisan vendor:publish --tag=error-pages-lang
 <summary><strong>😕 এখনো ডিফল্ট এরর পেজ দেখাচ্ছে</strong></summary>
 
 ```bash
-php artisan vendor:publish --tag=error-pages
 php artisan view:clear
+php artisan config:clear
 ```
+`bootstrap/cache/packages.php` পুরোনো হলে `composer dump-autoload` চালান।
 </details>
 
 <details>
 <summary><strong>🖼️ SVG লোড হচ্ছে না</strong></summary>
 
-SVG গুলো `public/svg/`-এ পাবলিশ হয়েছে কিনা চেক করুন।
+publish না করলে SVG ইনলাইন হয়ে আসে, তাই কিছু করার দরকার নেই।
+publish করে থাকলে `public/svg/` ফোল্ডারে ফাইলগুলো আছে কিনা দেখুন।
 </details>
 
 <details>
